@@ -30,5 +30,18 @@ echo "Extraindo Android Studio..."
 unzip -qq "ambiente-des/temp/android-studio-ide-171.4443003-linux.zip" -d "ambiente-des/aplicativos/"
 chmod 777 -R ~/ambiente-des/aplicativos/android-studio/
 
+DIR=`pwd`
+echo "[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Android Studio
+Exec=\"$DIR/ambiente-des/aplicativos/android-studio/bin/studio.sh\" %f
+Icon=$DIR/ambiente-des/aplicativos/android-studio/bin/studio.png
+Categories=Development;IDE;
+Terminal=false
+StartupNotify=true
+StartupWMClass=jetbrains-android-studio
+Name[en_GB]=android-studio.desktop" > $DIR/.local/share/applications/android-studio.desktop
+
 # Executa Android Studio
 ~/ambiente-des/aplicativos/android-studio/bin/studio.sh
