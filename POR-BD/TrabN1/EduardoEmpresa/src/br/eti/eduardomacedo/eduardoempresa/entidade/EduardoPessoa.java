@@ -7,10 +7,11 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "eduardopessoa")
+@SecondaryTable(name = "trabalhaem", pkJoinColumns = { @PrimaryKeyJoinColumn(name = "id") })
 public class EduardoPessoa {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int eduardomatricula;
 
 	@Column
@@ -19,12 +20,13 @@ public class EduardoPessoa {
 	@Temporal(TemporalType.DATE)
 	private Date eduardodatanascimento;
 
+	@Column(table = "trabalhaem")
 	@Temporal(TemporalType.DATE)
 	private Date eduardodataadmissao;
-	
-	@OneToMany(mappedBy = "eduardopessoa")
+
+	@OneToMany(mappedBy = "eduardopessoa", cascade = CascadeType.ALL)
 	private List<EduardoDependente> eduardodependentes;
-	
+
 	@ManyToOne
 	private EduardoEmpresa eduardoempresa;
 

@@ -5,17 +5,17 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-@Table(name="eduardoempresa")
+@Table(name = "eduardoempresa")
 public class EduardoEmpresa {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int eduardocodigo;
-	
+
 	@Column
 	private String eduardodescricao;
-	
-	@OneToMany(mappedBy = "eduardoempresa")
+
+	@OneToMany(mappedBy = "eduardoempresa", cascade = CascadeType.ALL)
 	private List<EduardoPessoa> eduardofuncionarios;
 
 	public int getEduardocodigo() {
@@ -41,6 +41,5 @@ public class EduardoEmpresa {
 	public void setEduardofuncionarios(List<EduardoPessoa> eduardofuncionarios) {
 		this.eduardofuncionarios = eduardofuncionarios;
 	}
-	
-	
+
 }

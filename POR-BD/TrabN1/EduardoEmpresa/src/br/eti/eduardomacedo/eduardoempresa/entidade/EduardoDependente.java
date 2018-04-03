@@ -3,6 +3,7 @@ package br.eti.eduardomacedo.eduardoempresa.entidade;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "eduardodependente")
 public class EduardoDependente {
 
 	@Id
