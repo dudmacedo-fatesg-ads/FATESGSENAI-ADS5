@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">People Register</string>
+    <string name="hint_nome">Enter your Name</string>
+    <string name="hint_email">Enter your E-mail</string>
+    <string name="hint_telefone">Enter your Phone</string>
+    <string name="hint_password">Enter your Password</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Registro de Personas</string>
+    <string name="hint_nome">Introduzca su Nombre</string>
+    <string name="hint_email">Introduzca su E-mail</string>
+    <string name="hint_telefone">Introduzca su Teléfono</string>
+    <string name="hint_password">Introduzca su Contraseña</string>
+    <string name="hint_confirm_password">Confirmar Contraseña</string>
+</resources>
