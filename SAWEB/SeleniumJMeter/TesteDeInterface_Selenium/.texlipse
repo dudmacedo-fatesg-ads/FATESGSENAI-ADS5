@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Tue Dec 02 19:51:02 BRST 2014
+markTmpDer=true
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=TesteDeInterface_Selenium.tex
+outputFile=TesteDeInterface_Selenium.pdf
+langSpell=en
+markDer=true
+srcDir=

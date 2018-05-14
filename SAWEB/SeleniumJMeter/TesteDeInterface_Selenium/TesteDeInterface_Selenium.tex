@@ -1,0 +1,289 @@
+%\documentclass{beamer} %voce pode usar este modelo tambem
+\documentclass[handout,t]{beamer}
+\usepackage{graphicx,url}
+\usepackage[brazil,english]{babel}
+\usepackage[latin1]{inputenc}
+\batchmode
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{4 on 1}[letterpaper,landscape,border shrink=5mm]
+\usepackage{amsmath,amssymb,enumerate,epsfig,bbm,calc,color,ifthen,capt-of,multicol}
+\usetheme{Berlin}
+\usecolortheme[subsection=true]{senac}%Beamer Outer Theme-circles on top
+%\useoutertheme[subsection=false]{smoothbars}
+
+\title[Testes de interface Web com Selenium]{Testes de interface Web}
+
+% Optional: a subtitle to be dispalyed on the title slide
+\subtitle{\bf{Selenium}}
+
+% The author(s) of the presentation:
+%  - again first a short version to be displayed at the bottom;
+%  - next the full list of authors, which may include contact information;
+\author[Edjalma Queiroz MSc]{
+  Edjalma Queiroz \\\medskip
+  {\small \url{edjalma@ambientinformatica.com.br}} \\ 
+  {\small \url{http://www.ambientinformatica.com.br}}}
+
+% The institute:
+%  - to start the name of the university as displayed on the top of each slide
+%    this can be adjusted such that you can also create a Dutch version
+%  - next the institute information as displayed on the title slide
+\institute[Faculdade SENAI Universitário]{
+  Faculdade SENAI Universitário}
+
+% Add a date and possibly the name of the event to the slides
+%  - again first a short version to be shown at the bottom of each slide
+%  - second the full date and event name for the title slide
+\date[Treinamento GETIN]{ 04 de Dezembro de 2014}
+
+%-------------------------Logo na parte de baixo do slide------------------------------------------
+\pgfdeclareimage[height=0.5cm]{senai-logo}{senai-logo.jpg}
+\logo{\pgfuseimage{senai-logo}\hspace*{0.15cm}}
+ %\logo{\pgfuseimage{senai-logo}\hspace*{0.5cm}}
+
+%-------------------------Este código faz o menuzinho bacana na parte superior do slide------------
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+\beamerdefaultoverlayspecification{<+->}
+% -----------------------------------------------------------------------------
+\begin{document}
+% -----------------------------------------------------------------------------
+
+%---Gerador de Sumário---------------------------------------------------------
+\frame{\titlepage}
+\section[]{}
+\begin{frame}{Sumário}
+  \begin{multicols}{2}
+          \tableofcontents
+    \end{multicols}
+\end{frame}
+%---Fim do Sumário------------------------------------------------------------
+
+
+% -----------------------------------------------------------------------------
+\section{Apresentação}
+
+\begin{frame}
+  \frametitle{Apresentação}
+  \begin{block}{Formação}
+    \begin{itemize}
+      \item Graduado em Análise de Sistemas pela Universidade Salgado de
+      Oliveira.
+      \item Especialista em Tecnologia da Informação e Negócios Eletrônicos pela Universidade Salgado de
+      Oliveira.
+      \item Mestre em Ciência da Computação pela UFG.
+    \end{itemize}
+   \end{block}
+\end{frame}
+% -----------------------------------------------------------------------------
+ \section{Plano de Ensino}
+ \subsection{Competências}
+
+ \begin{frame}
+   \frametitle{Competências}
+   	\begin{block}{Competências}
+ 	  \begin{itemize}
+ 	    \item Pesquisar, selecionar, instalar e configurar ambientes de
+ 	    desenvolvimento Java (E1);
+ 	    \item Fazer com que aplicações Java funcionem através de ambientes dinâmicos (E2)
+ 	    \item Interconectar aplicações Java com outros componentes necessários para
+ 	    o funcionamento de aplicações Java WEB (E3).
+ 	    \item Criar casos de Testes (Integração).
+ 	    \item Executar casos de testes na Interface Web (Selenium IDE e WebDriver).
+ 	  \end{itemize}
+ 	 \end{block}
+ \end{frame}
+
+ \begin{frame}
+   \frametitle{Habilidades}
+   	\begin{block}{Habilidades}
+ 	  \begin{itemize}
+ 	    \item Conhecer sobre Testes de Interfaces
+ 	    \item Conhecer a ferramenta Selenium
+ 	    \item Aplicar Testes funcionais através de interface Web com Selenium
+ 	    \end{itemize}
+ 	 \end{block}
+ \end{frame}
+
+ \begin{frame}
+   \frametitle{Bases Tecnológicas}
+   	\begin{block}{Bases Tecnológicas}
+ 	  \begin{itemize}
+ 	    \item Introdução ao Selenium
+ 	    \item Selenium IDE
+ 	    \item Selenium WebDriver
+ 	  \end{itemize}
+ 	 \end{block}
+ \end{frame}
+
+ \begin{frame}
+   \frametitle{Metodologia de Ensino}
+   	\begin{block}{Metodologia de Ensino}
+   	Acompanhar e executar tutoriais
+ 	  \begin{itemize}
+ 	    \item 40\% teórico
+ 	    \item 60\% prático
+ 	  \end{itemize}
+ 	 \end{block}
+ \end{frame}
+
+%%%%%%%%%%%%%%%%% INICIO DOS SLIDES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introdução}
+\begin{frame}
+  \frametitle{Introdução}
+  	\begin{block}{Selenium Web Test}
+		  \begin{itemize}
+		    \item Ferramenta de automação de testes funcionais para interfaces Web.
+		    \item Desenvolvida e mantida pela OpenQA como software livre
+		    \item Sua principal vantagem a utilização do próprio navegador web para realização dos testes.
+		    \item É possível realizar o acesso a sistemas através de navegadores como o Google Chrome, Firefox, Internet Explorer ou Safari.
+			\item É necessário apenas que o navegador utilizado possua suporte à DHTML (JavaScript/CSS).
+		  \end{itemize}
+	 \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Introdução}
+  	\begin{block}{Selenium Web Test}
+		  \begin{itemize}
+			\item O Selenium é uma ferramenta bem completa, pois contempla tanto a parte de geração dos casos de testes quanto a de execução. 
+			\item Atualmente o Selenium é mais uma plataforma de execução de testes que apenas uma ferramenta. 
+			\item Ele é composto do Selenium IDE, Selenium RC, Selenium Core e o Selenium Grid.
+			\item O Selenium IDE é um plugin/arquivo executável para os Navegadores que fornece um ambiente integrado para desenvolvimento de scripts de testes permitindo gravar, editar, executar e depurar os testes.
+		  \end{itemize}
+	 \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Introdução}
+  	\begin{block}{Selenium Web Test}
+		  \begin{itemize}
+			\item Os scritps podem ser gerados em um padrão próprio do Selenium ou escolher uma das linguagens de programação disponíveis, como Java, C#, PHP, Perl, Ruby, etc. 
+			\item A partir da captura automatica das ações do usuário na tela do sistema é possível montar os procedimentos de testes que serão utilizados na execução dos testes.
+			\item Os demais elementos da plataforma do Selenium, o RC, o Core e o Grid oferecem várias opções para e geração e execução de scripts de testes
+		  \end{itemize}
+	 \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Introdução}
+  	\begin{block}{Selenium Web Test}
+		  \begin{itemize}
+			\item O Selenium Core é um módulo que deve ser adicionado ao servidor web para a execução dos scripts na linguagem nativa do Selenium.
+			\item O RC (Remote Control) permite a integração com ferramentas de testes unitários (como JUnit) aumentando muito a flexibilidade dos scripts de testes.
+			\item O Grid é um módulo do Selenium que permite a execução distribuída e em vários ambientes dos scripts de testes. 
+		  \end{itemize}
+	 \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Selenium IDE}
+  	\begin{block}{Selenium Web Test}
+		  \begin{itemize}
+			\item É um plugin para o Firefox que permite a gravação execução (record and replay) de testes a partir do Firefox 2+. 
+			\item Você também pode gerar código para outras linguagens de programação.
+			\item  Além da gravação ele permite a edição e debug dos testes e possui o Selenium Core. Algumas das funcionalidades do Selenium são:
+				\begin{itemize}
+				  	\item Fácil gravação, alteração e execução dos scripts de teste
+					\item Fácil localização de elementos HTML através de Ids, Nomes, CSS ou XPath
+					\item Debug, breakpoints e Customização por plugins
+					\item Salvar testes em HTML (formato padrão do Selenium IDE), ou nas linguagens que ele suporta.
+				\end{itemize}
+		  \end{itemize}
+	 \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Selenium Remote Control}
+  	\begin{block}{Selenium Web Test}
+		  \begin{itemize}
+			\item  É um cliente/servidor que controla um browser local ou em outro computador utilizando scripts do Selenium IDE (html) ou scripts criados em diferentes linguagens de programação. 
+			\item  Ele é dividido em duas partes:
+				\begin{itemize}
+				  	\item Um servidor que, automaticamente, abre e fecha um browser web e age como um proxy HTTP para as requisições web dos scripts do Selenium
+					\item Bibliotecas para as linguagens de programação suportadas pelo Selenium
+				\end{itemize}
+			\item Quando queremos executar os scripts do Selenium IDE fora do Firefox utilizaremos o Selenium Remote Control através de linha de comando para executar suítes de teste em qualquer computador.
+			\item Esse método pode ser utilizado em ambientes de Integração Contínua. 
+		  \end{itemize}
+	 \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{WebDriver}
+  	\begin{block}{Selenium Web Test}
+		  \begin{itemize}
+			\item Hoje em dia tão polular como o Selenium IDE o Webdriver é uma API que, nativamente, executa ações nos browser suportados independente de versão e pode ser utilizado tanto localmente como remotamente. 
+			\item É a junção hoje do Selenium 1 + Webdriver.
+			\item O Webdriver foi inicialmente criado dentro do Google como uma melhoria ao Selenium 1.0. Depois de um tempo a equipe do Selenium incorporou o Webdriver e manteve o mesmo nome desta API, que também é conhecida como Selenium 2.0.
+			\item Ela nada mais é do que um conjunto de bibliotecas (bindings) para as linguagens de programação suportadas.
+		  \end{itemize}
+	 \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Selenium Grid}
+  	\begin{block}{Selenium Web Test}
+		  \begin{itemize}
+			\item Ele é um extensão que permite:
+					\begin{itemize}
+					  \item A execução de testes remotos e de testes distribuídos/paralelos
+					  \item Gerenciar múltiplos ambientes de um único ponto para que possamos executar testes em diferentes configurações de browsers e sistemas operacionais
+				  	\end{itemize}
+			\item Com ele podemos executar testes em outras máquinas em diferentes browsers disparando os testes de qualquer outra máquina.
+			\item Para que isso seja possível é necessário iniciar o Selenium Remote Control com alguns parâmetros adicionais.
+			\item Além disso precisamos instanciar (utilizar) um driver chamado RemoteWebDriver especificando qual a combinação de browser e/ou S.O. que necessitamos.
+		  \end{itemize}
+	 \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Selenium IDE}
+  	\begin{block}{Selenium IDE}
+		  \begin{itemize}
+			\item Ir para IntroducaoSeleniumIDE.pdf
+		  \end{itemize}
+	 \end{block}
+\end{frame}
+
+%https://docs.saucelabs.com/ci-integrations/jenkins/
+
+
+\begin{frame}
+  \frametitle{Selenium Web Driver}
+  	\begin{block}{Selenium Web Driver}
+		  \begin{itemize}
+			\item Ir para ExemploJavaSelenium\_PrimeiroExemplo.pdf
+		  \end{itemize}
+	 \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Selenium Web Driver}
+  	\begin{block}{Selenium Web Driver}
+		  \begin{itemize}
+			\item Ir para ExemploJavaSelenium\_SegundoExemplo\_WebDriverDetails.pdf
+		  \end{itemize}
+	 \end{block}
+\end{frame} 
+ 
+
+\begin{frame}
+  \frametitle{Selenium with Jenkins - CI Integrations}
+  	\begin{block}{Selenium IDE}
+		  \begin{itemize}
+			\item Para integrar ao Jenkins siga o tutorial:
+			\item https://docs.saucelabs.com/ci-integrations/jenkins/
+		  \end{itemize}
+	 \end{block}
+\end{frame}
+%------------------------------------------------------------------------------
+
+% -----------------------------------------------------------------------------
+\end{document}

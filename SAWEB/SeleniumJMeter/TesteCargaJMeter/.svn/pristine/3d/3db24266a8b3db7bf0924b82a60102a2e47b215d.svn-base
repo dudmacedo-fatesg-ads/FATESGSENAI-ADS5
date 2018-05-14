@@ -1,0 +1,263 @@
+%\documentclass{beamer} %voce pode usar este modelo tambem
+\documentclass[handout,t]{beamer}
+\usepackage{graphicx,url}
+\usepackage[brazil,english]{babel}
+\usepackage[latin1]{inputenc}
+\batchmode
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{4 on 1}[letterpaper,landscape,border shrink=5mm]
+\usepackage{amsmath,amssymb,enumerate,epsfig,bbm,calc,color,ifthen,capt-of,multicol}
+\usetheme{Berlin}
+\usecolortheme[subsection=true]{senac}%Beamer Outer Theme-circles on top
+%\useoutertheme[subsection=false]{smoothbars}
+
+\title[Testes de performance com JMeter]{Testes de performance}
+
+% Optional: a subtitle to be dispalyed on the title slide
+\subtitle{\bf{JMeter}}
+
+% The author(s) of the presentation:
+%  - again first a short version to be displayed at the bottom;
+%  - next the full list of authors, which may include contact information;
+\author[Edjalma Queiroz MSc]{
+  Edjalma Queiroz \\\medskip
+  {\small \url{edjalma@ambientinformatica.com.br}} \\ 
+  {\small \url{http://www.ambientinformatica.com.br}}}
+
+% The institute:
+%  - to start the name of the university as displayed on the top of each slide
+%    this can be adjusted such that you can also create a Dutch version
+%  - next the institute information as displayed on the title slide
+\institute[Faculdade SENAI Universitário]{
+  Faculdade SENAI Universitário}
+
+% Add a date and possibly the name of the event to the slides
+%  - again first a short version to be shown at the bottom of each slide
+%  - second the full date and event name for the title slide
+\date[Treinamento GETIN]{ 04 de Dezembro de 2014}
+
+%-------------------------Logo na parte de baixo do slide------------------------------------------
+\pgfdeclareimage[height=0.5cm]{senai-logo}{senai-logo.jpg}
+\logo{\pgfuseimage{senai-logo}\hspace*{0.15cm}}
+ %\logo{\pgfuseimage{senai-logo}\hspace*{0.5cm}}
+
+%-------------------------Este código faz o menuzinho bacana na parte superior do slide------------
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+\beamerdefaultoverlayspecification{<+->}
+% -----------------------------------------------------------------------------
+\begin{document}
+% -----------------------------------------------------------------------------
+
+%---Gerador de Sumário---------------------------------------------------------
+\frame{\titlepage}
+\section[]{}
+\begin{frame}{Sumário}
+  \begin{multicols}{2}
+          \tableofcontents
+    \end{multicols}
+\end{frame}
+%---Fim do Sumário------------------------------------------------------------
+
+
+% -----------------------------------------------------------------------------
+\section{Apresentação}
+
+\begin{frame}
+  \frametitle{Apresentação}
+  \begin{block}{Formação}
+    \begin{itemize}
+      \item Graduado em Análise de Sistemas pela Universidade Salgado de
+      Oliveira.
+      \item Especialista em Tecnologia da Informação e Negócios Eletrônicos pela Universidade Salgado de
+      Oliveira.
+      \item Mestre em Ciência da Computação pela UFG.
+    \end{itemize}
+   \end{block}
+\end{frame}
+% -----------------------------------------------------------------------------
+ \section{Plano de Ensino}
+ \subsection{Competências}
+
+ \begin{frame}
+   \frametitle{Competências}
+   	\begin{block}{Competências}
+ 	  \begin{itemize}
+ 	    \item Pesquisar, selecionar, instalar e configurar ambientes de
+ 	    desenvolvimento Java (E1);
+ 	    \item Fazer com que aplicações Java funcionem através de ambientes dinâmicos (E2)
+ 	    \item Interconectar aplicações Java com outros componentes necessários para
+ 	    o funcionamento de aplicações Java WEB (E3).
+ 	    \item Criar casos de Testes (Funcional).
+ 	    \item Executar casos de testes em Aplicações ({\it JMeter Tools}).
+ 	  \end{itemize}
+ 	 \end{block}
+ \end{frame}
+
+ \begin{frame}
+   \frametitle{Habilidades}
+   	\begin{block}{Habilidades}
+ 	  \begin{itemize}
+ 	    \item Conhecer sobre Testes Funcional e mensurar {\it performance}.
+ 	    \item Conhecer a ferramenta JMeter
+ 	    \item Aplicar Testes Funcionais.
+ 	    \end{itemize}
+ 	 \end{block}
+ \end{frame}
+
+ \begin{frame}
+   \frametitle{Bases Tecnológicas}
+   	\begin{block}{Bases Tecnológicas}
+ 	  \begin{itemize}
+ 	    \item Introdução ao JMeter
+ 	  \end{itemize}
+ 	 \end{block}
+ \end{frame}
+
+ \begin{frame}
+   \frametitle{Metodologia de Ensino}
+   	\begin{block}{Metodologia de Ensino}
+   	Acompanhar e executar tutoriais
+ 	  \begin{itemize}
+ 	    \item 40\% teórico
+ 	    \item 60\% prático
+ 	  \end{itemize}
+ 	 \end{block}
+ \end{frame}
+
+%%%%%%%%%%%%%%%%% INICIO DOS SLIDES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introdução}
+\begin{frame}
+  \frametitle{Introdução}
+  	\begin{block}{JMeter}
+		  \begin{itemize}
+		    \item Aplicação desktop open source.
+		    \item $100\%$ Java
+		    \item Foi desenvolvida para testar o comportamento funcional e medir o
+		    desempenho.
+		    \item Originalmente projetado para testar aplicações web
+			\item Com sua larga adoção, o projeto foi expandido para outras funções de
+			teste.
+		  \end{itemize}
+	 \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Introdução}
+  	\begin{block}{JMeter - Características}
+		  \begin{itemize}
+			\item Capacidade de testar desempenho de muitos tipos de servidor/protocolo: 
+				\begin{itemize}
+					\item LDAP: Permite enviar requisições para um servidor LDAP. Possui uma implementação simplificada e outra estendida.
+					\item Message-oriented middleware (MOM) via JMS
+					\item Mail - SMTP(S), POP3(S) and IMAP(S)
+					\item MongoDB (NoSQL)
+					\item Native commands or shell scripts
+					\item TCP
+				\end{itemize}
+		  \end{itemize}
+	 \end{block}
+\end{frame}
+\begin{frame}
+  \frametitle{Introdução}
+  	\begin{block}{JMeter - Características}
+		  \begin{itemize}
+			\item Capacidade de testar desempenho de muitos tipos de servidor/protocolo: 
+				\begin{itemize}
+					\item Web - HTTP, HTTPS: Pode incluir parâmetros ou arquivos a requisição, escolher o método usado (GET ou POST) e manipular Cookies. Este sampler possui dois tipos de implementação: Java HTTP ou Commons HTTPClient.
+					\item SOAP: Permite enviar requisições SOAP para um WebService, ou enviar XML-RPC através do protocolo HTTP.
+					\item FTP: executa o comando de retrieve em um arquivo especifico.
+					\item Database via JDBC: Com esta requisição é possível executar queries em um banco de dados específico.
+				\end{itemize}
+		  \end{itemize}
+	 \end{block}
+\end{frame}
+\begin{frame}
+  \frametitle{Introdução}
+  	\begin{block}{JMeter - Características}
+		  \begin{itemize}
+			\item Completamente portavel e 100\% puro java
+			\item Suporte a multi-threading, o que permite executar testes em ambientes
+			em que se exige a simultaniedade através de threads ou através de várias
+			funções por grupos (segmentação).
+			\item Interface GUI cuidadosamente desenhada permite a construção de planos
+			de teste e depurações mais rápidas.
+			\item Armazenamento em cache das análises feitas bem como repetição dos
+			testes.
+		  \end{itemize}
+	 \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Test Plain}
+  	\begin{block}{Plano de Teste}
+  			Qualquer teste executado como JMeter passa pela criação de um {\it Test
+  			Plan}. O plano de Teste é dividido em elementos:
+		  \begin{itemize}
+			\item {\it Thread Group}: Este é ponto de começo, todos os outros elementos
+			do Test Plan devem estar sob este. Como o próprio nome ressalta, este controla as threads que serão executadas pelo teste.
+			\item {\it Listeners}: Fornecem acesso as informações	obtidas pelo JMeter
+			durante os testes.
+		  \end{itemize}
+	 \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Test Plain}
+  	\begin{block}{Plano de Teste}
+  			Qualquer teste executado como JMeter passa pela criação de um {\it Test
+  			Plan}. O plano de Teste é dividido em elementos:
+		  \begin{itemize}
+			\item {\it Controllers}: Estes são divididos em dois grupos Samplers e Logic
+			Controllers.
+			\begin{itemize}
+				\item {\it Samplers}: São controladores pré-definidos para requisições
+			especificas. Podendo ser customizada com a inserção de configurações (Configurations), Assertions e etc.
+				\item {\it Logic Controllers}: São controladores mais genéricos. Podendo ser
+			customizada com a inserção de outros controllers, configuration elements, assertions, etc.
+			\end{itemize} 
+		  \end{itemize}
+	 \end{block}
+\end{frame}
+\begin{frame}
+  \frametitle{Test Plain}
+  	\begin{block}{Plano de Teste}
+  			Qualquer teste executado como JMeter passa pela criação de um {\it Test
+  			Plan}. O plano de Teste é dividido em elementos:
+		  \begin{itemize}
+			\item {\it Timers}: Por padrão, o JMeter faz requisições sem pausas entre elas. Os timers são utilizados para incluir pausas entre as requisições.
+			\item {\it Assertions}: Usado para verificar se a resposta obtida na requisição é a esperada. Podendo ser usado expressões regulares (Perl-style regular expression) na comparação.
+		  \end{itemize}
+	 \end{block}
+\end{frame}
+\begin{frame}
+  \frametitle{Test Plain}
+  	\begin{block}{Plano de Teste}
+  			Qualquer teste executado como JMeter passa pela criação de um {\it Test
+  			Plan}. O plano de Teste é dividido em elementos:
+		  \begin{itemize}
+			\item {\it Configuration Elements}: Embora não faça requisições (exceto para HTTP Proxy Server), este elemento pode adicionar ou modificar as requisições.
+			\item {\it Pre-Processor Elements}: Executa alguma ação antes de fazer a requisição. Mais usado para pré-configurações das requisições.
+			\item {\it Post-Processor Elements} :Executa alguma ação depois de fazer a requisição. Mais usado para processar as respostas da requisição.
+		  \end{itemize}
+	 \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{JMeter IDE}
+  	\begin{block}{JMeter IDE}
+		  \begin{itemize}
+			\item Ir para IntroducaoJMeter.pdf
+		  \end{itemize}
+	 \end{block}
+\end{frame}
+%------------------------------------------------------------------------------
+
+% -----------------------------------------------------------------------------
+\end{document}
