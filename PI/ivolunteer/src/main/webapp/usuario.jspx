@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition template="template.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a="http://www.ambientinformatica.com.br/jsf2"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="corpo">
+			<p:panel header="Adicionar papeis ao usuário" id="panel" style="width:100%">
+				<a:field label="Nome" id="nomePessoa">
+					<p:inputText value="#{UsuarioControl.nome }" />
+				</a:field>
+				<a:field label="CPF" spaceLeft="10px">
+					<p:inputMask id="cpfPessoa" value="#{UsuarioControl.cpf }" mask="999.999.999-99" readonly="#{UsuarioControl.cpf != null}"></p:inputMask>
+				</a:field>
+				<a:field label="Login" spaceLeft="10px">
+					<p:inputText readonly="#{UsuarioControl.usuario.login != null}" id="loginUsuario" value="#{UsuarioControl.login }"></p:inputText>
+				</a:field>
+				<a:newLine />
+				<a:newLine />
+				<p:panel header="Permissões" style="width:95%">
+					<a:field label="Permissão">
+						<p:selectOneMenu styleClass="obrigatorio" value="#{UsuarioControl.papel}" converter="objectConverter" style="width:300px;">
+							<f:selectItem itemLabel="Selecione" itemDisabled="true" />
+							<f:selectItems var="papelUsuario" value="#{UsuarioControl.papeis}" itemLabel="#{papelUsuario}" itemValue="#{papelUsuario}" />
+						</p:selectOneMenu>
+					</a:field>
+					<a:field spaceLeft="10px">
+						<p:commandButton value="Adicionar" ajax="false" actionListener="#{UsuarioControl.adicionarPapel }" update="papeisUsuario" icon="ui-icon-plus"></p:commandButton>
+					</a:field>
+					<a:newLine />
+					<a:newLine />
+					<p:panel header="Papeis adicionados" id="panelPapeis" style="width:90%">
+						<p:dataTable id="papeisUsuario" value="#{UsuarioControl.papeisAdicionados }" var="permissao" width="100%" emptyMessage="Sem registros">
+							<p:column headerText="Descrição">
+								<h:outputText value="#{permissao.descricao }" />
+							</p:column>
+							<p:column width="10%">
+								<f:facet name="header">
+									<h:outputText value="Remover"></h:outputText>
+								</f:facet>
+								<p:commandButton ajax="false" action="#{UsuarioControl.removerPapel(permissao)}" update="@all" icon="ui-icon-trash" >
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+					</p:panel>
+				</p:panel>
+			</p:panel>
+			<a:field>
+				<p:commandButton value="Confirmar" actionListener="#{UsuarioControl.confirmar }" update="@form papeisUsuario" icon="ui-icon-disk"></p:commandButton>
+			</a:field>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://www.ambientinformatica.com.br/jsf2"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="corpo">
+
+		<p:panel header="Usuários" id="panel">
+			<a:field label="Nome">
+				<p:inputText value="#{UsuarioListaControl.nomePessoa }" ajax="false"></p:inputText>
+			</a:field>
+			<a:field spaceLeft="10px">
+				<p:commandButton value="Buscar" 
+					action="#{UsuarioListaControl.buscarUsuario }" update="@all"
+					icon="ui-icon-search">
+					
+				</p:commandButton>
+			</a:field>
+			<a:newLine />
+		</p:panel>
+
+		<div class="centralizar">
+		<p:dataTable id="usuarios" value="#{UsuarioListaControl.usuarios }" var="usuario" width="100%" emptyMessage="Sem registros" style="text-align: left">
+			<f:facet name="header">
+				<h:outputText value="Lista de Usuários"></h:outputText>
+			</f:facet>
+			<p:column sortBy="#{usuario.login }" style="width: 9%">
+				<f:facet name="header">
+					<h:outputText value="Login"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{usuario.login }"></h:outputText>
+			</p:column>
+			<p:column sortBy="#{usuario.pessoa.nomePessoa }" style="width: 10%">
+				<f:facet name="header">
+					<h:outputText value="Nome"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{usuario.pessoa.nomePessoa }"></h:outputText>
+			</p:column>
+			<p:column sortBy="#{usuario.listaPapeis}" style="width: 10%">
+				<f:facet name="header">
+					<h:outputText value="Permissões"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{usuario.listaPapeis }"></h:outputText>
+			</p:column>
+			<p:column sortBy="#{usuario.dataCriacao }" style="width: 100px">
+				<f:facet name="header">
+					<h:outputText value="Data do Cadastro"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{usuario.dataCriacao }">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3" />
+				</h:outputText>
+			</p:column>
+			<p:column sortBy="#{usuario.pessoa.cpf }" style="width: 100px">
+				<f:facet name="header">
+					<h:outputText value="CPF"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{usuario.pessoa.cpf }"></h:outputText>
+			</p:column>
+			<p:column style="width: 50px">
+				<f:facet name="header">
+					<h:outputText value="Status"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{usuario.statusUsuario }"></h:outputText>
+			</p:column>
+			<p:column width="9%">
+				<f:facet name="header">
+					<h:outputText value="Senha"></h:outputText>
+				</f:facet>
+				<p:commandButton actionListener="#{UsuarioListaControl.reiniciarSenha(usuario) }" update="@all" icon="ui-icon-refresh" value="Restaurar">
+				</p:commandButton>
+			</p:column>
+			<p:column headerText="Desativar" width="6%">
+				<p:commandButton icon="ui-icon-close" update="usuarios" onclick="PF('confirmacaoDesativacao').show()" global="false">
+					<f:setPropertyActionListener value="#{usuario }" target="#{UsuarioListaControl.usuarioAtivo }" />
+				</p:commandButton>
+			</p:column>
+			<p:column headerText="Ativar" width="4%">
+				<p:commandButton icon="ui-icon-check" update="usuarios" onclick="PF('confirmacaoAtivacao').show()" global="false">
+					<f:setPropertyActionListener value="#{usuario }" target="#{UsuarioListaControl.usuarioAtivo }" />
+				</p:commandButton>
+			</p:column>
+			<p:column headerText="Alterar" width="4%">
+				<p:commandButton ajax="false" update="@form" action="usuario?faces-redirect=true" icon="ui-icon-pencil">
+					<f:setPropertyActionListener value="#{usuario }" target="#{UsuarioControl.usuario }" />
+				</p:commandButton>
+			</p:column>
+			
+		</p:dataTable>
+		</div>
+		<p:confirmDialog id="confirmacaoDesativacao" widgetVar="confirmacaoDesativacao" header="Tem certeza que voçê deseja desativar o usuário?">
+			<p:commandButton value="Sim" actionListener="#{UsuarioListaControl.desativarUsuario }" update="@all" oncomplete="PF('confirmacaoDesativacao').hide()">
+			</p:commandButton>
+			<p:commandButton value="Não" onclick="PF('confirmacaoDesativacao').hide()">
+			</p:commandButton>
+		</p:confirmDialog>
+		
+		<p:confirmDialog id="confirmacaoAtivacao" widgetVar="confirmacaoAtivacao" header="Tem certeza que voçê deseja ativar o usuário?">
+			<p:commandButton value="Sim" actionListener="#{UsuarioListaControl.ativarUsuario }" update="@all" oncomplete="PF('confirmacaoAtivacao').hide()">
+			</p:commandButton>
+			<p:commandButton value="Não" onclick="PF('confirmacaoAtivacao').hide()">
+			</p:commandButton>
+		</p:confirmDialog>
+
+	</ui:define>
+</ui:composition>

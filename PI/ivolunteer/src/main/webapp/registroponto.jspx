@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://www.ambientinformatica.com.br/jsf2"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="corpo">
+		<p:panel header="Cadastro de Horarios" id="panelHorario">
+
+
+			<p:tabView id="tabHorarios" cache="true">
+				<p:tab title="Quadro de Horários" id="horario">
+
+					<p:panel id="painelQuadroHorario">
+
+						<p:growl id="msg" sticky="false" life="5000" />
+
+						<a:field label="Funcionario">
+							<p:autoComplete minQueryLength="3"
+								value="#{GradeHorarioControl.funcionario}"
+								completeMethod="#{GradeHorarioControl.consultarFuncionario}"
+								var="func" itemLabel="#{func.nomePessoa}" itemValue="#{func}"
+								converter="objectConverter" forceSelection="true"
+								effect="fade"								
+								requiredMessage="Campo Funcionario obrigatório.">
+							</p:autoComplete>
+						</a:field>
+
+						<a:field label="Dia da semana" spaceLeft="10px" width="215px">
+							<p:selectOneMenu id="diaSemana"
+								value="#{GradeHorarioControl.gradeHorario.diaSemana}"
+								style="width:215px;">
+								<f:selectItems
+									value="#{GradeHorarioControl.completeEnumDiaSemana}"></f:selectItems>
+							</p:selectOneMenu>
+
+						</a:field>
+
+						<a:newLine />
+
+						<a:field label="Horario Entrada">
+
+							<p:calendar id="time1"
+								value="#{GradeHorarioControl.gradeHorario.horarioEntrada}"
+								pattern="HH:mm" timeOnly="true" />
+
+						</a:field>
+
+						<a:field label="Horario Saida" spaceLeft="10px">
+
+							<p:calendar id="time2"
+								value="#{GradeHorarioControl.gradeHorario.horarioSaida}"
+								pattern="HH:mm" timeOnly="true" />
+
+						</a:field>
+						
+						<a:newLine />
+						
+						<a:field>
+							<p:commandButton
+								actionListener="#{GradeHorarioControl.confirmar}"
+								value="Adicionar Horario" icon="ui-icon-plusthick"
+								update="horarios" ajax="false" />
+						</a:field>
+						
+						<a:newLine />
+						<a:newLine />
+
+						<p:dataTable id="horarios" style="width:100%"
+							emptyMessage="Sem Registros"
+							value="#{GradeHorarioControl.gradeHorarios}"
+							var="horario">
+							
+							<p:column headerText="Funcionario">
+								<h:outputText value="#{horario.funcionario.nomePessoa}"></h:outputText>
+							</p:column>
+
+							<p:column headerText="Horario Entrada">
+								<h:outputText value="#{horario.horarioEntrada}"></h:outputText>
+							</p:column>
+
+							<p:column headerText="Horario Saida">
+								<h:outputText value="#{horario.horarioSaida}"></h:outputText>
+							</p:column>
+
+							<p:column headerText="Dia da Semana">
+								<h:outputText value="#{horario.diaSemana}"></h:outputText>
+							</p:column>
+
+							<p:column headerText="Ação">
+								<p:commandButton icon="ui-icon-closethick"
+									action="#{GradeHorarioControl.removerHorario(horario)}"
+									update="horarios" ajax="false" />
+									
+								<p:commandButton icon="ui-icon-pencil" style="margin-left: 10px;"
+								action="#{GradeHorarioControl.carregarHorario(horario)}" update=":formCorpo:panelHorario">
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+
+
+
+					</p:panel>
+					<a:newLine />
+
+				</p:tab>
+
+			</p:tabView>
+		</p:panel>
+
+	</ui:define>
+</ui:composition>

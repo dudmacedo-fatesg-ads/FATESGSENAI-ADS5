@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://www.ambientinformatica.com.br/jsf2"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="corpo">
+		
+			<p:panel header="Atividade Diaria" id="panel">
+				<p:messages id="messages" showDetail="true" autoUpdate="true"
+					closable="true" />
+				<a:newLine />
+
+				<a:field label="Funcionario">
+					<p:autoComplete id="acMinLength" minQueryLength="3"
+						value="#{AtividadeDiariaControl.funcionario}"
+						completeMethod="#{AtividadeDiariaControl.consultarFuncionario}"
+						var="func" itemLabel="#{func.nomePessoa}" itemValue="#{func}"
+						converter="objectConverter" forceSelection="true"
+						effect="fade" requiredMessage="Campo Funcionario obrigatório.">
+					</p:autoComplete>
+
+				</a:field>
+
+				
+				<a:field label="Hora Inicial" spaceLeft="15px">
+					<p:calendar
+						value="#{AtividadeDiariaControl.atividadeDiaria.horaInicial}"
+						pattern="HH:mm a" timeOnly="true" />
+				</a:field>
+				<a:field label="Hora Final" spaceLeft="15px">
+					<p:calendar
+						value="#{AtividadeDiariaControl.atividadeDiaria.horaFinal}"
+						pattern="HH:mm a" timeOnly="true" />
+				</a:field>
+				<a:field label="Atividade" spaceLeft="15px">
+					<p:inputText
+						value="#{AtividadeDiariaControl.atividadeDiaria.atividade}" />
+				</a:field>
+				<a:field label="Local" spaceLeft="15px">
+					<p:inputText
+						value="#{AtividadeDiariaControl.atividadeDiaria.local}"
+						pattern="dd-MM-yyyy" mask="true" />
+				</a:field>
+
+				<a:newLine />
+				<a:newLine />
+
+				<a:field label="Observações">
+					<p:editor widgetVar="editorWidget"
+						value="#{AtividadeDiariaControl.atividadeDiaria.observacao}"
+						style="width:100%" />
+				</a:field>
+
+				<a:newLine />
+
+				<a:field>
+					<p:commandButton ajax="true" icon="ui-icon-plusthick"
+						actionListener="#{AtividadeDiariaControl.confirmar}"
+						value="Adicionar" update="atividades, panel">
+					</p:commandButton>
+				</a:field>
+
+				<a:newLine />
+				<a:newLine />
+
+				<p:dataTable id="atividades" style="width:100%"
+					emptyMessage="Sem Registros"
+					value="#{AtividadeDiariaControl.atividadesDiarias}" var="item">
+
+					<p:column headerText="Funcionario">
+						<h:outputText value="#{item.funcionario.nomePessoa}" />
+					</p:column>
+
+					<p:column headerText="Atividade">
+						<h:outputText value="#{item.atividade}" />
+					</p:column>
+
+					<p:column headerText="Hora Inicial">
+						<h:outputText value="#{item.horaInicial}" />
+					</p:column>
+
+					<p:column headerText="Hora Final">
+						<h:outputText value="#{item.horaFinal}" />
+					</p:column>
+					
+					<p:column headerText="Local">
+						<h:outputText value="#{item.local}" />
+					</p:column>
+					
+					<p:column headerText="Observação">
+						<h:outputText value="#{item.observacao}" />
+					</p:column>
+
+					<p:column headerText="Ação">
+						<p:commandButton icon="ui-icon-closethick" 
+							 action="#{AtividadeDiariaControl.removerAtividade(item)}"
+							update="atividades">
+							<f:setPropertyActionListener value="#{item}" target="#{AtividadeDiariaControl.atividadeDiaria}" />
+							<p:confirm header="Confirmar a exclusão!"
+							message="Deseja Excluir essa atividade?" icon="ui-icon-alert"/>
+						</p:commandButton>
+							
+							<p:commandButton icon="ui-icon-pencil" style="margin-left: 10px;"
+								action="#{AtividadeDiariaControl.carregaAtividade(item)}" update=":formCorpo:panel">
+							</p:commandButton>
+					</p:column>
+				</p:dataTable>
+				
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+					<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+				</p:confirmDialog>
+			</p:panel>
+		
+	</ui:define>
+</ui:composition>

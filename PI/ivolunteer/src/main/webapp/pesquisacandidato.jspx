@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://www.ambientinformatica.com.br/jsf2"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="corpo">
+
+		<p:panel header="Pesquisar Candidato" id="selecao">
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
+
+			<p:commandButton id="consultar" value="Consultar"
+				icon="ui-icon-search" onclick="consultar.show();" />
+			<p:dialog id="modalPesquisa" header="Consultar" widgetVar="consultar"
+				modal="true" maximizable="false" minimizable="false" width="40%"
+				height="550px" resizable="false" closeOnEscape="true">
+				<a:field label="Nome">
+					<p:inputText id="filtro"
+						value="#{PesquisaSelecaoControl.candidatoConsulta.nomePessoa}" />
+				</a:field>
+				<a:field label="Beneficio" spaceLeft="15px">
+					<p:selectBooleanCheckbox
+						value="#{PesquisaSelecaoControl.selecaoCandidato.beneficios}"
+						style="width:50px;" />
+				</a:field>
+				<a:newLine />
+				<a:field label="Valor Inicial">
+					<p:inputText id="valorInicial"
+						value="#{PesquisaSelecaoControl.selecaoCandidato.valorInicial}"
+						style="width:100px;" />
+				</a:field>
+				<a:field label="Valor Final" spaceLeft="15px">
+					<p:inputText id="valorFinal"
+						value="#{PesquisaSelecaoControl.selecaoCandidato.valorFinal}"
+						style="width:100px;" />
+				</a:field>
+
+				<a:field spaceLeft="15px">
+					<p:commandButton id="filtrar" value="Busca" icon="ui-icon-search"
+						actionListener="#{PesquisaSelecaoControl.aplicarFiltro}"
+						update="listaCandidato" />
+				</a:field>
+				<a:newLine />
+				<p:dataTable id="listaCandidato" var="itemCandidato"
+					style="width:100%" value="#{PesquisaSelecaoControl.listaCandidato}"
+					widgetVar="funcionariosTable" emptyMessage="Sem Registros a Exibir">
+					<p:column headerText="Codigo">#{itemCandidato.id}</p:column>
+					<p:column headerText="Nome" width="30%">#{itemCandidato.nomePessoa}</p:column>
+					<p:column headerText="Certidão de nascimento">#{itemCandidato.certidaoNascimento}</p:column>
+					<p:column width="5%">
+
+						<p:commandButton value="Alterar"
+							action="#{PesquisaSelecaoControl.carregaPessoaAlteracao(itemCandidato)}"
+							update="@all" />
+						
+						<p:commandButton value="Matricular" id="matricular"
+						action="/localhost:8080/ivolunteer/matricula.jsf" ajax="false">
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+			</p:dialog>
+
+
+			<p:confirmDialog header="Atenção!" severity="alert"
+				widgetVar="confirmaAlteracao">
+				<f:facet name="message">
+					<h:outputText value="Deseja alterar o candidato? " />
+				</f:facet>
+				<p:commandButton value="Sim"
+					actionListener="#{PesquisaSelecaoControl.confirmar}"
+					oncomplete="confirmaAlteracao.hide(), consultarCandidato.hide()"
+					update="@all" />
+				<p:commandButton value="Não" update="modalPesquisa"
+					onclick="confirmaAlteracao.hide()" />
+			</p:confirmDialog>
+
+
+
+
+			<a:newLine />
+			<a:newLine />
+
+			<a:field label="Nome">
+				<p:inputText id="nome"
+					value="#{PesquisaSelecaoControl.candidatoConsulta.nomePessoa}"
+					style="width:200%;" />
+			</a:field>
+
+			<a:newLine />
+
+			<a:field label="Descrição">
+				<p:inputTextarea id="descricao"
+					value="#{PesquisaSelecaoControl.candidatoConsulta.descricao}"
+					style="width:200%;" />
+			</a:field>
+
+			<a:newLine />
+
+			<a:field label="Prioridade">
+				<p:selectOneMenu id="enumPrioridade"
+					value="#{PesquisaSelecaoControl.candidatoConsulta.enumPrioridade }">
+					<f:selectItems
+						value="#{PesquisaSelecaoControl.completeEnumPrioridade }"></f:selectItems>
+				</p:selectOneMenu>
+			</a:field>
+
+			<a:newLine />
+
+			<a:newLine />
+
+			<p:commandButton actionListener="#{PesquisaSelecaoControl.confirmar}"
+				value="Confirmar" update="@all">
+			</p:commandButton>
+
+		</p:panel>
+	</ui:define>
+</ui:composition>

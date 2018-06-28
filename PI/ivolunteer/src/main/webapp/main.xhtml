@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>iVolunteer</title>
+
+</h:head>
+<h:body>
+	<p:growl autoUpdate="true"></p:growl>
+	<div class="navbar navbar-fixed-top" style="z-index: 1;">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a> 
+					<h:panelGroup rendered="#{securityScope.userInRole['USUARIO']}">
+						<a class="brand" href="index.html">Inicio</a>
+					</h:panelGroup>
+
+					<div style="height: 0px;" class="nav-collapse collapse">
+						<ul class="nav">
+						<h:panelGroup rendered="#{securityScope.userInRole['ADMIN'] or securityScope.userInRole['SECRETARIA']}">
+							<li><a class="dropdown-toggle" data-toggle="dropdown" href="#"> Secretaria <span class="caret"></span>
+							</a>
+								<ul class="dropdown-menu">
+									<li id="nav-parceiroList"><a href="candidato.jsf">Canditado</a></li>
+									<li id="nav-produtoList"><a href="cadastroavaliacao.jsf">Avaliação</a></li>
+									<li id="nav-centroCusto"><a href="cadastrofuncionario.jsf">Funcionário</a></li>
+									<li id="nav-documentoFiscal"><a href="matricula.jsf">Matricula</a></li>
+									<li id="nav-documentoFiscalList"><a href="turma.jsf">Turma</a></li>
+									<li id="nav-ajustarProdutoContabilList"><a href="atividadediaria.jsf">Atividade</a></li>
+									<li id="nav-conversorProdutoList"><a href="AgrupamentoTurma.jsf">Agrupamento</a></li>
+								</ul></li>
+
+							<li><a class="dropdown-toggle" data-toggle="dropdown" href="#"> Módulos <span class="caret"></span>
+							</a>
+								<ul class="dropdown-menu">
+									<li id="nav-parceiroList"><a href="listaavaliacao.jsf">Lista de Avaliação</a></li>
+									<li id="nav-produtoList"><a href="pesquisacandidato.jsf">Seleção de Candidato</a></li>
+									<li id="nav-centroCusto"><a href="registrofrequencia.jsf">Registro de Frequência</a></li>
+									<li id="nav-documentoFiscal"><a href="registroponto.jsf">Registro de Ponto</a></li>
+								</ul></li>
+							</h:panelGroup>
+							<h:panelGroup rendered="#{securityScope.userInRole['ADMIN'] or securityScope.userInRole['EDUCADOR']}">
+								<li><a class="dropdown-toggle" data-toggle="dropdown" href="#"> Sala de Aula <span class="caret"></span>
+								</a>
+									<ul class="dropdown-menu">
+										<li id="nav-frequencia"><a href="registrofrequencia.jsf">Registrar Frequência</a></li>
+									</ul></li>
+							</h:panelGroup>
+
+							<h:panelGroup rendered="#{securityScope.userInRole['ADMIN']}">
+								<li><a class="dropdown-toggle" data-toggle="dropdown" href="#"> Administrar <span class="caret"></span>
+								</a>
+									<ul class="dropdown-menu">
+										<li id="nav-usuario"><a href="usuario.jsf">Usuário</a></li>
+										<li id="nav-usuarioLista"><a href="usuarioLista.jsf">Lista de usuários</a></li>
+									</ul></li>
+							</h:panelGroup>
+						<h:panelGroup rendered="#{securityScope.userInRole['USUARIO']}">
+							<li>
+								<ul>
+									<li  style="padding-top: 10px; padding-left: 503px">Usuário: <span class="label label-inverse">#{UsuarioLogadoControl.usuario.pessoa.nomePessoa}</span></li>
+									<!--  <li>Matrícula: <span class="label label-inverse">#{UsuarioLogadoControl.usuario.pessoa.id}</span></li> -->
+								</ul></li>
+						</h:panelGroup>
+						
+							<h:panelGroup rendered="#{securityScope.userInRole['USUARIO']}">
+								<li><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="padding-left: 15px">
+									<p:commandButton value="Opções" style="background: #49afcd; color: #ffffff"/><span class="caret"></span></a>
+										<ul class="dropdown-menu">
+											<li id="nav-alterarSenha"><a href="#" onclick="PF('alterarSenha').show();">Alterar senha<span></span></a></li>
+											<li id="nav-sair"><a href="sair.jsp">Sair<span></span></a></li>
+										</ul></li>
+							</h:panelGroup>
+						</ul>
+						<p:dialog header="Alterar senha do usuário" widgetVar="alterarSenha" style="align: center">
+							<h:form id="formAteraSenha">
+								<h:outputText value="Senha atual" />
+								<br/>
+								<p:password value="#{UsuarioLogadoControl.senhaAtual }" placeholder="Digite novamente" style="width: 200px"/>
+								<br/>
+	    						<h:outputText value="Nova senha" />
+	    						<br/>
+	    						<p:password value="#{UsuarioLogadoControl.senhaAlteracao }" feedback="true" inline="true" promptLabel="Digite uma senha segura" 
+	    							goodLabel="Boa" weakLabel="Razoável" strongLabel="Excelente" placeholder="Digite a nova senha" style="width: 200px"/>
+	    						<br/>
+	    						<br/>
+	    						<p:password value="#{UsuarioLogadoControl.senhaAlteracaoNovamente }" placeholder="Digite novamente" style="width: 200px"/>
+	    						<br/>
+	    						<br/>
+	    						<p:commandButton value="Confirmar" id="btnAlterarSenha" icon="ui-icon-check" action="#{UsuarioLogadoControl.alterarSenhaDoUsuario }"
+	    							onclick="PF('alterarSenha').hide()" />
+	    					</h:form>
+						</p:dialog>
+					</div>
+			</div>
+		</div>
+	</div>
+	<br />
+	<br />
+	<p:messages autoUpdate="true" />
+	<br />
+	<br />
+	<div class="container">
+		<ui:insert name="conteudo" />
+	</div>
+
+	<footer class="footer navbar-fixed-bottom" style="z-index: -1; padding-left: 520px">
+	<div class="container">
+		<p>Copyright ® Ambient Informática Ltda. IVolunteer versão: #{VersaoControl.versao}</p>
+	</div>
+	</footer>
+
+</h:body>
+</html>
