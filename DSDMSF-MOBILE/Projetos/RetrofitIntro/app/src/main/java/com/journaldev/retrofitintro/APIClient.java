@@ -14,8 +14,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 class APIClient {
 
     private static Retrofit retrofit = null;
-    //DOMINIO+CONTEXTO
-    public static final String ENDPOINT = "http://services.urbano.eti.br/northwind/";
 
     static Retrofit getClient() {
 
@@ -24,9 +22,8 @@ class APIClient {
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
 
-        //PASSO 1
         retrofit = new Retrofit.Builder()
-                .baseUrl(ENDPOINT)
+                .baseUrl("https://reqres.in")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

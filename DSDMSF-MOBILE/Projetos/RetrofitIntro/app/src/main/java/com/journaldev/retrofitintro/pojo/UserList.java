@@ -8,6 +8,7 @@ import java.util.List;
 /**
  * Created by anupamchugh on 09/01/17.
  */
+
 public class UserList {
 
     @SerializedName("page")

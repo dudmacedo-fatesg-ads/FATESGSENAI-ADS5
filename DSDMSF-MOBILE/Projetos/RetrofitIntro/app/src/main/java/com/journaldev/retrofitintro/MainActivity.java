@@ -7,7 +7,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.journaldev.retrofitintro.pojo.CreateUserResponse;
-import com.journaldev.retrofitintro.pojo.Customer;
 import com.journaldev.retrofitintro.pojo.MultipleResource;
 import com.journaldev.retrofitintro.pojo.User;
 import com.journaldev.retrofitintro.pojo.UserList;
@@ -22,63 +21,19 @@ public class MainActivity extends AppCompatActivity {
 
     TextView responseText;
     APIInterface apiInterface;
-    CustomerResource apiCustomerResouce;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         responseText = (TextView) findViewById(R.id.responseText);
-
-        //tem o contexto da aplicação (application)
-        //PASSO 4
-        apiCustomerResouce = APIClient.getClient().create(CustomerResource.class);
+        apiInterface = APIClient.getClient().create(APIInterface.class);
 
 
         /**
          GET List Resources
-        **/
-
-        //PASSSO 5
-        Call<List<Customer>> call = apiCustomerResouce.listOfCustomer();
-        call.enqueue(new Callback<List<Customer>>() {
-            @Override
-            public void onResponse(Call<List<Customer>> call, Response<List<Customer>> response) {
-                Log.d("HTTP_STATUS",String.valueOf(response.code()));
-
-                List<Customer> customers = response.body();
-
-                for(Customer customer : customers){
-                    String texto = String.format("Id: %s\nContactName: %s\nCompanyName: %s",
-                            customer.getCustomerID(),customer.getContactName(),
-                            customer.getCompanyName());
-
-                    Log.i("rest",texto);
-                    responseText.setText(texto);
-                    Toast.makeText(getApplicationContext(),texto,Toast.LENGTH_LONG);
-//                    try {
-//
-//                        Thread.sleep(3000);
-//                    } catch (InterruptedException e) {
-//                        Log.i("rest",texto);
-//                    }
-                }
-
-
-
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Customer>> call, Throwable t) {
-
-            }
-        });
-
-
-
-        /*Call<MultipleResource> call = apiInterface.doGetListResources();
-        //adiciona a requisicao num pilha
+         **/
+        Call<MultipleResource> call = apiInterface.doGetListResources();
         call.enqueue(new Callback<MultipleResource>() {
             @Override
             public void onResponse(Call<MultipleResource> call, Response<MultipleResource> response) {
@@ -113,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         /**
          Create new user
          **/
-        /*User user = new User("morpheus", "leader");
+        User user = new User("morpheus", "leader");
         Call<User> call1 = apiInterface.createUser(user);
         call1.enqueue(new Callback<User>() {
             @Override
@@ -133,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         /**
          GET List Users
          **/
-        /*Call<UserList> call2 = apiInterface.doGetUserList("2");
+        Call<UserList> call2 = apiInterface.doGetUserList("2");
         call2.enqueue(new Callback<UserList>() {
             @Override
             public void onResponse(Call<UserList> call, Response<UserList> response) {
@@ -162,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         /**
          POST name and job Url encoded.
          **/
-        /*Call<UserList> call3 = apiInterface.doCreateUserWithField("morpheus","leader");
+        Call<UserList> call3 = apiInterface.doCreateUserWithField("morpheus","leader");
         call3.enqueue(new Callback<UserList>() {
             @Override
             public void onResponse(Call<UserList> call, Response<UserList> response) {
@@ -184,6 +139,6 @@ public class MainActivity extends AppCompatActivity {
                 call.cancel();
             }
         });
-*/
+
     }
 }
