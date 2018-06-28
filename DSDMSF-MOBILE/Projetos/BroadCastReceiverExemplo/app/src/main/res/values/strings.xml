@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">BroadCast Receiver Exemplo</string>
+    <string name="caixa_nome">Caixa SMS</string>
+</resources>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Hello World</string>
+    <string name="saudacoes">Bom dia</string>
+    <string name="text_btn_mostrar">Mostrar</string>
+    <string name="hint_nome">Informe seu nome</string>
+    <string name="hint_email">Informe seu email</string>
+    <string name="hint_phone">Informe seu telefone</string>
+</resources>
